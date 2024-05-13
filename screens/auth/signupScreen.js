@@ -1,9 +1,11 @@
 import React, { useState, createRef } from "react";
-import {  Dimensions, View, ScrollView, TouchableOpacity,  Image, StyleSheet, Text } from "react-native";
+import {  Dimensions, View, ScrollView, TouchableOpacity,  Image, StyleSheet, Text, Platform } from "react-native";
 import { Colors, Fonts, Sizes,CommonStyles } from "../../constants/styles";
 import { MaterialIcons } from '@expo/vector-icons';
 import { Input } from '@rneui/themed';
 import MyStatusBar from "../../components/myStatusBar";
+
+const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://localhost:5000';
 
 const { width } = Dimensions.get('window');
 
@@ -17,13 +19,95 @@ const SignupScreen = ({ navigation }) => {
         phoneNumber: null,
     })
 
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [isError, setIsError] = useState(false);
+    const [isLogin, setIsLogin] = useState(true);
+    const [message, setMessage] = useState('');
+
+    const onLoggedIn = token => {
+        callNextPage();
+        fetch(`${API_URL}/private`, {
+            mode: 'no-cors',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`, 
+            },
+        })
+        .then(async res => { 
+            try {
+                const jsonRes = await res.json();
+                if (res.status === 200) {
+                    setMessage(jsonRes.message);
+                }
+            } catch (err) {
+                console.log(err);
+            };
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
+    const callNextPage = () => {
+        navigation.push('BottomTabBar');
+    }
+
+
+    const onSubmitHandler = () => {
+        const payload = {
+            email,
+            name,
+            password,
+        };
+        // 'Access-Control-Allow-Origin':'https://justpatties.ca/justpatties-ca-backend',
+        console.log(payload)
+        fetch(`${API_URL}/${isLogin ? 'signup' : 'signup'}`, {
+            headers: {
+                'Access-Control-Allow-Origin':'*',
+                'Access-Control-Allow-Origin':'http://localhost:5000',
+                'Access-Control-Allow-Methods':'POST',
+                'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+              },
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        })
+        .then(async res => { 
+            try {
+                const jsonRes = await res.json();
+                if (res.status !== 200) {
+                    setIsError(true);
+                    setMessage(jsonRes.message);
+                } else if(res.status == 200){
+                    navigation.push('BottomTabBar')
+                } else {
+                    onLoggedIn(jsonRes.token);
+                    setIsError(false);
+                    setMessage(jsonRes.message);
+                   // navigation.push('BottomTabBar')
+                }
+            } catch (err) {
+                console.log(err);
+            };
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    };
+    //onPress={() => navigation.push('BottomTabBar')}
+
     const updateState = (data) => setState((state) => ({ ...state, ...data }))
 
     const {
         fullName,
-        password,
+       // password,
         passwordSecure,
-        email,
+      //  email,
         phoneNumber,
     } = state;
 
@@ -126,7 +210,10 @@ const SignupScreen = ({ navigation }) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.9}
-                onPress={() => navigation.push('Verification')}
+                onPress={onSubmitHandler}
+                //onChangeHandler
+                //onPress={() => navigation.push('BottomTabBar')}
+               // onPress={() => navigation.push('BottomTabBar')}
                 style={styles.signupButtonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor18Bold }}>
@@ -142,7 +229,8 @@ const SignupScreen = ({ navigation }) => {
             <Input
                 ref={input}
                 value={password}
-                onChangeText={(text) => updateState({ password: text })}
+                onChangeText={setPassword}
+                //onChangeText={(text) => updateState({ password: text })}
                 selectionColor={Colors.primaryColor}
                 placeholder='Password'
                 placeholderTextColor={Colors.grayColor}
@@ -199,7 +287,8 @@ const SignupScreen = ({ navigation }) => {
             <Input
                 ref={input}
                 value={email}
-                onChangeText={(text) => updateState({ email: text })}
+                onChangeText={setEmail}
+                //onChangeText={(text) => updateState({ email: text })}
                 selectionColor={Colors.primaryColor}
                 placeholder='Email Address'
                 placeholderTextColor={Colors.grayColor}
@@ -224,7 +313,7 @@ const SignupScreen = ({ navigation }) => {
             <Input
                 ref={input}
                 value={fullName}
-                onChangeText={(text) => updateState({ fullName: text })}
+                onChangeText={setName}
                 selectionColor={Colors.primaryColor}
                 placeholder='Full Name'
                 placeholderTextColor={Colors.grayColor}

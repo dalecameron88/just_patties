@@ -1,9 +1,11 @@
-import React, { useState, createRef } from "react";
-import { Dimensions, View, ScrollView, TouchableOpacity, Image, StyleSheet, Text } from "react-native";
+import React, { useState, createRef, useEffect } from "react";
+import { Dimensions, View, ScrollView, TouchableOpacity, Image, StyleSheet, Text, Platform } from "react-native";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
 import { MaterialIcons } from '@expo/vector-icons';
 import { Input } from '@rneui/themed';
 import MyStatusBar from "../../components/myStatusBar";
+
+const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://localhost:5000';
 
 const { width } = Dimensions.get('window');
 
@@ -15,7 +17,104 @@ const SigninScreen = ({ navigation }) => {
         passwordSecure: true,
     })
 
+    const [totalReactPackages, setTotalReactPackages] = useState(null);
+    const [isError, setIsError] = useState(false);
+    const string1 = "in";
+    const string = "found";
+ 
+    const getStudents = () => {
+        const queryString = {
+            name: userName,
+            password: password
+        };        
+        console.log("Current State" + queryString)
+/*
+
+        return fetch(`http://localhost:5000/login?${JSON.stringify(queryString)}`).then(async res => { 
+            try {
+                const jsonRes = await res.json();
+                if (res.status !== 200) {
+                    setIsError(true);
+                    setMessage(jsonRes.message);
+                } else {
+                    onLoggedIn(jsonRes.token);
+                    setIsError(false);
+                    setMessage(jsonRes.message);
+                }
+            } catch (err) {
+                console.log(err);
+            };
+        }) */
+       //http://localhost:5000
+       //https://justpatties.ca/justpatties-ca-backend
+
+        fetch(`${API_URL}/${isLogin ? 'login' : 'login'}`, {
+            headers: {
+                'Access-Control-Allow-Origin':'*',
+                'Access-Control-Allow-Origin':'http://localhost:5000',
+                'Access-Control-Allow-Methods':'POST',
+                'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+              },
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(queryString),
+        })
+        .then(async res => { 
+            try {
+                const jsonRes = await res.json();
+                console.log("Returened Message" + JSON.stringify(jsonRes.message))
+                if (res.status !== 404) {
+                    setMessage(jsonRes);
+                    if(jsonRes.message.indexOf(string1)){
+                        navigation.push('BottomTabBar')
+                        } 
+                   /* if(jsonRes.message.indexOf(string)) {
+                        navigation.push('Signup')
+                        }*/
+               
+                }
+            } catch (err) {
+                console.log(err);
+            };
+        })
+        .catch(err => {
+            console.log(err);
+        });
+      }
+
     const updateState = (data) => setState((state) => ({ ...state, ...data }))
+
+    const [isLogin, setIsLogin] = useState(true);
+    const [message, setMessage] = useState('');
+
+
+    const  onChangeHandler = () => {
+        console.log("Handler Called!!!")
+
+        const string = "found";
+
+        const string1 = "in";
+        const ret = message;
+
+       // navigation.push('BottomTabBar')
+
+        console.log(JSON.stringify(message)); // true
+    
+        setIsLogin(!isLogin);
+        //setMessage('');
+        //       if(message.indexOf("2")>= 1){
+       if(message.indexOf("2")>0){
+         navigation.push('BottomTabBar')
+         } else {
+         navigation.push('Signup')
+         }
+
+         getStudents();
+
+        console.log("Returned Data" + message)
+    };
 
     const {
         userName,
@@ -121,7 +220,8 @@ const SigninScreen = ({ navigation }) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.9}
-                onPress={() => navigation.push('SelectPaymentMethod')}
+                onPress={onChangeHandler}
+                //onPress={() => navigation.push('BottomTabBar')}
                 style={styles.signinButtonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor18Bold }}>

@@ -77,7 +77,7 @@ const ProfileScreen = ({ navigation, changeIndex }) => {
       </Dialog.Container>
     );
   }
-
+/*
   function logoutOption() {
     return (
       <TouchableOpacity
@@ -272,9 +272,121 @@ const ProfileScreen = ({ navigation, changeIndex }) => {
         Profile
       </Text>
     );
+  } */
+};
+
+
+/*
+
+import React, { useState } from "react";
+import {
+  View,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  Text,
+  Platform,
+} from "react-native";
+import { Colors, Fonts, Sizes,CommonStyles } from "../../constants/styles";
+import { MaterialIcons } from "@expo/vector-icons";
+import Dialog from "react-native-dialog";
+
+const { width } = Dimensions.get("window");
+
+const ProfileScreen = ({ navigation, changeIndex }) => {
+
+  const [showLogoutDialog, setshowLogoutDialog] = useState(false);
+
+  return (
+    <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
+      <View style={{ flex: 1 }}>
+        {header()}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 7.0 }}
+        >
+        </ScrollView>
+      </View>
+    </View>
+  );
+  function header() {
+    return (
+      <Text
+        style={{
+          margin: Sizes.fixPadding * 2.0,
+          ...Fonts.blackColor18SemiBold,
+        }}
+      >
+        Profile
+      </Text>
+    );
   }
 };
 
+const styles = StyleSheet.create({
+  profileInfoWrapStyle: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginHorizontal: Sizes.fixPadding * 2.0,
+  },
+  profileOptionsWrapStyle: {
+    backgroundColor: Colors.whiteColor,
+    elevation: 2.0,
+    marginHorizontal: Sizes.fixPadding * 2.0,
+    paddingHorizontal: Sizes.fixPadding,
+    paddingTop: Sizes.fixPadding + 5.0,
+    borderRadius: Sizes.fixPadding,
+    ...CommonStyles.shadow
+  },
+  profileOptionWrapStyle: {
+    marginBottom: Sizes.fixPadding + 5.0,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  logoutButtonStyle: {
+    backgroundColor: Colors.primaryColor,
+    borderRadius: Sizes.fixPadding,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: Sizes.fixPadding,
+    marginLeft: Sizes.fixPadding,
+    borderColor: Colors.primaryColor,
+    borderWidth: 1.0,
+    flex: 1,
+  },
+  cancelButtonStyle: {
+    backgroundColor: Colors.whiteColor,
+    borderRadius: Sizes.fixPadding,
+    paddingVertical: Sizes.fixPadding,
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+    marginRight: Sizes.fixPadding,
+    borderColor: Colors.primaryColor,
+    borderWidth: 1.0,
+  },
+  dialogContainerStyle: {
+    borderRadius: Sizes.fixPadding,
+    width: width - 100,
+    backgroundColor: Colors.whiteColor,
+  },
+  dialogContentStyle: {
+    paddingVertical:
+      Platform.OS == "ios" ? Sizes.fixPadding * 2.0 : Sizes.fixPadding - 5.0,
+    paddingHorizontal:
+      Platform.OS == "ios" ? Sizes.fixPadding * 2.0 : Sizes.fixPadding - 5.0,
+    backgroundColor: Colors.whiteColor,
+    alignItems: "center",
+  },
+});
+
+export default ProfileScreen;
+
+*/
 const styles = StyleSheet.create({
   profileInfoWrapStyle: {
     flexDirection: "row",

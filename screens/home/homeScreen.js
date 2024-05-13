@@ -17,15 +17,15 @@ const todaysSpecialList = [
   {
     id: "t1",
     foodImage: require("../../assets/images/food/food11.png"),
-    foodName: "Chicken italiano cheezy periperi pizza",
-    amount: 14.99,
+    foodName: "Patty Time Beef & Chicken Patties",
+    amount: 2.99,
     isVeg: false,
   },
   {
     id: "t2",
     foodImage: require("../../assets/images/food/food14.png"),
-    foodName: "Paneer Khurchan",
-    amount: 19.99,
+    foodName: "Jamaican Tastee since 1966",
+    amount: 4.99,
     isVeg: true,
   },
 ];
@@ -44,42 +44,42 @@ const bannersList = [
 const foodCategoriesList = [
   {
     id: "1",
-    category: "Fast Food",
+    category: "Patty Time",
     foodImage: require("../../assets/images/food/food3.png"),
   },
   {
     id: "2",
-    category: "South Indian",
+    category: "TinNel's",
     foodImage: require("../../assets/images/food/food4.png"),
   },
   {
     id: "3",
-    category: "Chinese",
+    category: "MichiDean",
     foodImage: require("../../assets/images/food/food5.png"),
   },
   {
     id: "4",
-    category: "Diet Food",
+    category: "Allan's Patties",
     foodImage: require("../../assets/images/food/food6.png"),
   },
   {
     id: "5",
-    category: "Italian",
+    category: "Patty World Shrimp Patties",
     foodImage: require("../../assets/images/food/food7.png"),
   },
   {
     id: "6",
-    category: "Sea Food",
+    category: "Patty Shack",
     foodImage: require("../../assets/images/food/food8.png"),
   },
   {
     id: "7",
-    category: "Ice Cream",
+    category: "Cheese and Beef Loaves",
     foodImage: require("../../assets/images/food/food9.png"),
   },
   {
     id: "8",
-    category: "Dessert",
+    category: "Natural Juices",
     foodImage: require("../../assets/images/food/food10.png"),
   },
 ];
@@ -98,37 +98,37 @@ const offersBannersList = [
 const nearByRestaurantsList = [
   {
     id: "1",
-    restaurantName: "Marine Rise Restaurant",
+    restaurantName: "Foodies Market & Juice Bar",
     ratedPeopleCount: 198,
-    restaurantAddress: "1124, Old Chruch Street, New york, USA",
+    restaurantAddress: "1900, Dundas Street east E, Missisauga ON, L4X 1L9, Canada",
     rating: 4.3,
   },
   {
     id: "2",
-    restaurantName: "Sliver Leaf Restaurant",
+    restaurantName: "Gems",
     ratedPeopleCount: 170,
-    restaurantAddress: "1124, Old Chruch Street, New york, USA",
+    restaurantAddress: "1900, Dundas Street east E, Missisauga ON, L4X 1L9, Canada",
     rating: 4.0,
   },
   {
     id: "3",
-    restaurantName: "Johson Foods",
+    restaurantName: "Charlie's",
     ratedPeopleCount: 130,
-    restaurantAddress: "1124, Old Chruch Street, New york, USA",
+    restaurantAddress: "1900, Dundas Street east E, Missisauga ON, L4X 1L9, Canada",
     rating: 3.5,
   },
   {
     id: "4",
-    restaurantName: "Lepord Cafe",
+    restaurantName: "Nicey's",
     ratedPeopleCount: 100,
-    restaurantAddress: "1124, Old Chruch Street, New york, USA",
+    restaurantAddress: "801, Dundas Street east E, Missisauga ON, L4Y 4G9, Canada",
     rating: 3.0,
   },
   {
     id: "5",
-    restaurantName: "King Of Foods",
+    restaurantName: "Island People Groceries",
     ratedPeopleCount: 80,
-    restaurantAddress: "1124, Old Chruch Street, New york, USA",
+    restaurantAddress: "1900, Dundas Street east E, Missisauga ON, L4X 1L9, Canada",
     rating: 2.0,
   },
 ];
@@ -304,7 +304,7 @@ const HomeScreen = ({ navigation }) => {
           }}
         >
           <Text style={{ ...Fonts.blackColor16SemiBold }}>
-            Restaurants Near You
+            Patty locations Near You
           </Text>
           <Text
             onPress={() => navigation.push("RestaurantsList")}
@@ -446,7 +446,7 @@ const HomeScreen = ({ navigation }) => {
         <Text
           style={{ marginLeft: Sizes.fixPadding, ...Fonts.grayColor14Medium }}
         >
-          Search for restaurant,food...
+          Search for patties , food...
         </Text>
       </TouchableOpacity>
     );

@@ -113,6 +113,8 @@ const SearchScreen = ({ navigation }) => {
         </View>
     )
 
+    /*
+
     function updateProductCustomise({ id }) {
         const newList = customiseOptions.map((item) => {
             if (item.id === id) {
@@ -293,7 +295,7 @@ const SearchScreen = ({ navigation }) => {
             </View>
         )
     }
-
+ */
     function header() {
         return (
             <MaterialIcons

@@ -86,7 +86,7 @@ const SplashScreen = ({ navigation }) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.9}
-                onPress={() => navigation.push('RestaurantDetail')}
+                onPress={() => navigation.push('Signin')}
                 style={styles.signinButtonStyle}
             >
                 <Text style={{ ...Fonts.blackColor20Bold }}>

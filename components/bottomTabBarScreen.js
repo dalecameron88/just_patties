@@ -60,7 +60,7 @@ const BottomTabBarScreen = ({ navigation, route }) => {
                         <CartScreen navigation={navigation} />
                         :
                         currentIndex == 3 ?
-                            <OrdersScreen navigation={navigation} />
+                            <ProfileScreen navigation={navigation} />
                             :
                             <ProfileScreen navigation={navigation} changeIndex={changeIndex} />
                 }
